@@ -1,0 +1,47 @@
+{
+  "name": "@minnow-dev/school",
+  "version": "0.0.1",
+  "description": "role separator ",
+  "main": "dist/index.js",
+  "scripts": {
+    "compile": "npx hardhat compile",
+    "lint:fix": "npx prettier --write \"src/**/*.{js,ts}\" && npx tslint --config tslint.json --project ./tsconfig.json --fix",
+    "lint": "npx tslint --config tslint.json --project ./tsconfig.json",
+    "test": "npx hardhat test",
+    "build": "npx tsc --build .",
+    "clean": "npx rimraf dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minnow-dev/role-contract.git"
+  },
+  "keywords": [
+    "solidity",
+    "ethereum",
+    "hardhat"
+  ],
+  "author": "leekt<leekt216@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/minnow-dev/minnow/issues"
+  },
+  "homepage": "https://github.com/minnow-dev/minnow#readme",
+  "dependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.1",
+    "ethers": "^5.0.19",
+    "hardhat": "^2.0.6",
+    "hardhat-spdx-license-identifier": "^2.0.3"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.14",
+    "@types/mocha": "^8.0.3",
+    "chai": "^4.2.0",
+    "prettier": "^2.2.1",
+    "ts-node": "^9.1.1",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-consistent-codestyle": "^1.16.0",
+    "tslint-plugin-prettier": "^2.3.0",
+    "typescript": "^4.1.3"
+  }
+}
