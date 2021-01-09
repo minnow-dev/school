@@ -3,13 +3,6 @@
 pragma solidity ^0.8.0;
 
 library Role {
-    modifier onlyRole(bytes32 role) {
-        // TODO : fix this to library that will not pack the empty bytes
-        string memory message = string(abi.encodePacked("only user with role ", role, " can call this function"));
-        require(hasRole(msg.sender, role), message);
-        _;
-    }
-
     function getFlag(bytes32 _role) private view returns(bytes32 flag) {
         bytes32 slot = keccak256(abi.encodePacked("Minnow.Flag.", _role));
         assembly {
