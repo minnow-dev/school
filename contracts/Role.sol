@@ -11,37 +11,51 @@ library Role {
     }
 
     function getFlag(bytes32 _role) private view returns(bytes32 flag) {
-        bytes32 slot = keccak256(abi.encodePacked("Flag.", _role));
+        bytes32 slot = keccak256(abi.encodePacked("Minnow.Flag.", _role));
         assembly {
             flag := sload(slot)
         }
     }
 
-    function getRole(address _user) private view returns(bytes32 role) {
-        bytes32 slot = keccak256(abi.encodePacked("Role.", _user));
+    function getRole(address _user) private view returns(bytes32 flag) {
+        bytes32 slot = keccak256(abi.encodePacked("Minnow.Role.", _user));
         assembly {
-            role := sload(slot)
+            flag := sload(slot)
         }
     }
 
     function setFlag(bytes32 _role, bytes32 _flag) private {
-        bytes32 slot = keccak256(abi.encodePacked("Flag.", _role));
+        bytes32 slot = keccak256(abi.encodePacked("Minnow.Flag.", _role));
         assembly {
             sstore(slot, _flag)
         }
     }
     
-    function setRole(address _user, bytes32 _role) private {
-        bytes32 slot = keccak256(abi.encodePacked("Role.", _user));
+    function setRole(address _user, bytes32 _flag) private {
+        bytes32 slot = keccak256(abi.encodePacked("Minnow.Role.", _user));
         assembly {
-            sstore(slot, _role)
+            sstore(slot, _flag)
         }
     }
 
     function hasRole(address user, bytes32 role) internal view returns(bool) {
+        bytes32 flag = getFlag(role);
+        require(flag != bytes32(0), "role is not registered");
+        return getRole(user) & flag == flag;
+    }
+
+    ///@dev sets role to user
+    ///@param role role 
+    ///@param user address of user receiving the role
+    function grantRole(bytes32 role, address user) internal {
         require(getFlag(role) != bytes32(0), "role is not registered");
-        //TODO : optimize this
-        return getFlag(getRole(user)) & getFlag(role) == getFlag(role);
+        setRole(user, getFlag(role));
+    }
+
+    ///@dev revoke role of user
+    ///@param user address of user that will be revoked
+    function revokeRole(address user) internal {
+        setRole(user, bytes32(0));
     }
 
     ///@dev sets role based on existing roles
