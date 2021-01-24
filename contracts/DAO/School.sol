@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "./access/Ownable.sol";
+import "../access/Ownable.sol";
 
 contract School is Ownable {
     mapping(address => mapping(bytes4 => bytes32)) public executableRole;
@@ -26,7 +26,7 @@ contract School is Ownable {
     }
 
     // TODO - figure out how to enable execute for non registered user, if target is registered as ANY
-    // allow this to be called with any role since canExecute will guard thigs/
+    // allow this to be called with any role since canExecute will guard thigs
     function execute(address target, bytes4 selector, bytes calldata data) external {
         require(canExecute(msg.sender, target, selector), "user cannot execute this function");
         bytes memory packedData = abi.encodePacked(selector, data);
