@@ -13,12 +13,12 @@ contract Ownable {
     constructor(address _owner) {
         // grant all access for Owner
         Role.configureRole("Owner", bytes32(type(uint256).max));
-        Role.grantRole("Owner", _owner);
+        Role.grantRole(_owner, "Owner");
     }
 
     function transferOwnership(address _newOwner) public {
         Role.revokeRole(msg.sender);
-        Role.grantRole("Owner", _newOwner);
+        Role.grantRole(_newOwner, "Owner");
     }
 
     function renounceOwnership() external onlyOwner {

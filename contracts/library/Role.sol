@@ -38,9 +38,9 @@ library Role {
     }
 
     ///@dev sets role to user
-    ///@param role role 
     ///@param user address of user receiving the role
-    function grantRole(bytes32 role, address user) internal {
+    ///@param role role 
+    function grantRole(address user, bytes32 role) internal {
         require(getFlag(role) != bytes32(0), "role is not registered");
         setRole(user, getFlag(role));
     }
